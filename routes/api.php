@@ -17,6 +17,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', [ApiTokenController::class, 'createToken']);
-Route::middleware('auth:sanctum')->get('/private', [UserController::class, 'getUser']);
-Route::get('/public', [SuccessController::class, 'success']);
+

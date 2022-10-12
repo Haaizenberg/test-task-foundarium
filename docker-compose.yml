@@ -9,7 +9,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: lara
-    container_name: test-app
+    container_name: testf-app
     # restart: unless-stopped
     working_dir: /var/www/
     volumes:
@@ -19,7 +19,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: test-nginx
+    container_name: testf-nginx
     # restart: unless-stopped
     ports:
       - "80:80"
@@ -31,7 +31,7 @@ services:
 
   db:
     image: mysql:5.7
-    container_name: test-db
+    container_name: testf-db
     #    restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -47,7 +47,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin
-    container_name: test-phpmyadmin
+    container_name: testf-phpmyadmin
     ports:
       - 8001:80
     environment:
