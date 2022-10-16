@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Car extends Model
 {
@@ -12,4 +14,38 @@ class Car extends Model
     protected $fillable = [
         'mark',
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+    public function bookByUser(string $userId): bool
+    {
+        try {
+            $user = User::find($userId);
+            $this->user()->associate($user);
+            $this->save();
+        } catch (Exception $e) {
+            Log::error('Не удалось забронировать машину за пользователем. ' . $e->getMessage());
+            return false;
+        }
+        
+        return true;
+    }
+
+
+    public function releaseByUser(): bool
+    {
+        try {
+            $this->user()->dissociate();
+        } catch (Exception $e) {
+            Log::error('Не удалось освободить машину, используемую пользователем. ' . $e->getMessage());
+            return false;
+        }
+        
+        return true;
+    }
 }

@@ -13,4 +13,9 @@ class User extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function car()
+    {
+        return $this->hasOne(Car::class);
+    }
 }

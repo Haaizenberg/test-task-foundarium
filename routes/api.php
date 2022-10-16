@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CarController;
 use App\Http\Controllers\ApiTokenController;
 use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\UserController;
@@ -18,3 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::group([
+    'prefix' => '/car', 
+], function () {
+    Route::post('/book/{car}', [ CarController::class, 'book' ]);
+    Route::post('/release/{car}', [ CarController::class, 'release' ]);
+});
