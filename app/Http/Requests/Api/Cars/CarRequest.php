@@ -24,7 +24,7 @@ class CarRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => [ 'bail', 'required', 'string', 'exists:App\Models\User,id' ],
+            'user_id' => [ 'bail', 'required', 'numeric', 'exists:App\Models\User,id' ],
         ];
     }
 }

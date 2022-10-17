@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,3 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/{car}', [ CarController::class, 'car' ]);
+

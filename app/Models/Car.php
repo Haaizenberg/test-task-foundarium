@@ -22,10 +22,9 @@ class Car extends Model
     }
 
 
-    public function bookByUser(string $userId): bool
+    public function bookByUser(User $user): bool
     {
         try {
-            $user = User::find($userId);
             $this->user()->associate($user);
             $this->save();
         } catch (Exception $e) {
@@ -37,10 +36,11 @@ class Car extends Model
     }
 
 
-    public function releaseByUser(): bool
+    public function release(): bool
     {
         try {
             $this->user()->dissociate();
+            $this->save();
         } catch (Exception $e) {
             Log::error('Не удалось освободить машину, используемую пользователем. ' . $e->getMessage());
             return false;
