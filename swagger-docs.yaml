@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Car booking service
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: dmitriiykustov@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+tags:
+  - name: car
+paths:
+  /car/book/{carId}:
+    post:
+      tags:
+        - car
+      summary: Book free car by user
+      description: Book free car by user by user_id
+      operationId: bookCar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarRequest'
+        required: true
+      parameters:
+        - name: carId
+          in: path
+          description: ID of car for booking
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '302':
+          description: Error in user_id
+        '500':
+          description: Error during the operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /car/release/{carId}:
+    post:
+      tags:
+        - car
+      summary: Release car from user
+      description: Release car from user by user_id
+      operationId: releaseCar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarRequest'
+        required: true
+      parameters:
+        - name: carId
+          in: path
+          description: ID of car for booking
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '302':
+          description: Error in user_id
+        '500':
+          description: Error during the operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  
+components:
+  schemas:
+    CarRequest:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          example: 10
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Success'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Error'
+  requestBodies:
+    CarRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CarRequest'
