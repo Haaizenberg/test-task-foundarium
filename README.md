@@ -4,6 +4,8 @@
 2. Настроить .env
 3. <code>docker-compose up</code>
 
+Миграции! <code>php artisan migrate</code>
+
 Запуск тестов:
 <code>docker-compose exec app php artisan test</code>
 ИЛИ
