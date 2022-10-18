@@ -10,3 +10,5 @@
 <code>docker-compose exec app php artisan test</code>
 ИЛИ
 <code>php artisan test</code>
+
+Файл swagger документации: swagger-docs.yaml
