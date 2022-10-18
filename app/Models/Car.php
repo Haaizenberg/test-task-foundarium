@@ -22,6 +22,13 @@ class Car extends Model
     }
 
 
+    /**
+     * Бронирует автомобиль за пользователем
+     * 
+     * @param User $user
+     * 
+     * @return bool успешность операции
+     */
     public function bookByUser(User $user): bool
     {
         try {
@@ -36,6 +43,11 @@ class Car extends Model
     }
 
 
+    /**
+     * Освобождает автомобиль, использующийся пользователем
+     * 
+     * @return bool успешность операции
+     */
     public function release(): bool
     {
         try {

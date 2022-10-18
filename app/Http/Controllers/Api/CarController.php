@@ -12,15 +12,13 @@ class CarController extends \App\Http\Controllers\Controller
     /**
      * Бронирует машину за польователем
      * 
-     * @param CarRequest $request
+     * @param App\Http\Requests\Api\Cars\CarRequest $request
      * @param App\Models\Car $car автомобиль
-     * 
-     * @return CarResource
      */
-    public function book(CarRequest $request, Car $car)
+    public function book(CarRequest $request, Car $car): \Illuminate\Http\Response
     {
         $user = User::getById($request->validated('user_id'));
-        if (CarUsingManager::bookCarByUser($user, $car)) {
+        if ($user && CarUsingManager::bookCarByUser($user, $car)) {
             return response('Success');
         } else {
             return response('Error', 500);
@@ -31,14 +29,13 @@ class CarController extends \App\Http\Controllers\Controller
     /**
      * Особождает машину от использования пользователем
      * 
+     * @param App\Http\Requests\Api\Cars\CarRequest $request
      * @param App\Models\Car $car автомобиль
-     * 
-     * @return CarResource
      */
-    public function release(CarRequest $request, Car $car)
+    public function release(CarRequest $request, Car $car): \Illuminate\Http\Response
     {
         $user = User::getById($request->validated('user_id'));
-        if (CarUsingManager::releaseCar($user, $car)) {
+        if ($user && CarUsingManager::releaseCar($user, $car)) {
             return response('Success');
         } else {
             return response('Error', 500);

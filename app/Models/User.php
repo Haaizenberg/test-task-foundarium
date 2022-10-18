@@ -20,7 +20,16 @@ class User extends Model
         return $this->hasOne(Car::class);
     }
 
-    public static function getById(string $userId)
+
+    /**
+     * Получает пользователя из БД по id.
+     * С обработкой возможных исключений.
+     * 
+     * @param string $userId
+     * 
+     * @return App\Models\User 
+     */
+    public static function getById(string $userId): ?self
     {
         try {
             $user = self::find($userId);

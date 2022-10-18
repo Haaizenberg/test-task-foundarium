@@ -16,7 +16,7 @@ class CarBookTest extends TestCase
      *
      * @return void
      */
-    public function test_book_ree_car_by_free_user()
+    public function test_book_free_car_by_free_user()
     {
         Car::factory()
             ->count(10)
@@ -154,6 +154,57 @@ class CarBookTest extends TestCase
         $this->assertDatabaseHas('cars', [
             'id' => $usedCar2['id'],
             'user_id' => $carUser2['id'],
+        ]);
+    }
+
+    
+    
+    /**
+     * Тест использования свободной машины несуществующим в базе пользователем.
+     *
+     * @return void
+     */
+    public function test_book_free_car_by_unknown_user()
+    {
+        $car = Car::factory()->create();
+        $randomUserId = random_int(1, 100);
+        
+        $response = $this->post('/api/car/book/' . $car['id'], [
+            'user_id' => $randomUserId,
+        ]);
+
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('cars', [
+            'id' => $car['id'],
+            'user_id' => null,
+        ]);
+        $this->assertDatabaseMissing('cars', [
+            'user_id' => $randomUserId,
+        ]);
+    }
+
+
+    /**
+     * Тест использования несуществующей машины свободной пользователем.
+     *
+     * @return void
+     */
+    public function test_book_unknown_car_by_free_user()
+    {
+        $user = User::factory()->create();
+        $randomCarId = random_int(1, 100);
+        
+        $response = $this->post('/api/car/book/' . $randomCarId, [
+            'user_id' => $user['id'],
+        ]);
+
+        $response->assertStatus(404);
+        $this->assertDatabaseMissing('cars', [
+            'id' => $randomCarId,
+            'user_id' => $user['id'],
+        ]);
+        $this->assertDatabaseMissing('cars', [
+            'id' => $randomCarId,
         ]);
     }
 }

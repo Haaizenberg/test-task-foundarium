@@ -1,10 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\CarController;
-use App\Http\Controllers\ApiTokenController;
-use App\Http\Controllers\SuccessController;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
