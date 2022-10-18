@@ -11,4 +11,4 @@
 ИЛИ
 <code>php artisan test</code>
 
-Файл swagger документации: swagger-docs.yaml
+Файл swagger документации: <b>swagger-docs.yaml</b>
